@@ -1,0 +1,56 @@
+[
+    {
+      "pizzaId": 1,
+      "pizzaName": "Capricciosa",
+      "pizzeriaId": 1,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 2,
+      "pizzaName": "Mexicana",
+      "pizzeriaId": 1,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 3,
+      "pizzaName": "Margherita",
+      "pizzeriaId": 1,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 4,
+      "pizzaName": "Vegetarian",
+      "pizzeriaId": 2,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 5,
+      "pizzaName": "Capricciosa",
+      "pizzeriaId": 2,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 6,
+      "pizzaName": "Super Supreme",
+      "pizzeriaId": 3,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 7,
+      "pizzaName": "The Lot",
+      "pizzeriaId": 3,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 8,
+      "pizzaName": "Meat Lover",
+      "pizzeriaId": 4,
+      "pizzaPrice": 20
+    },
+    {
+      "pizzaId": 9,
+      "pizzaName": "Cheese Pizza",
+      "pizzeriaId": 4,
+      "pizzaPrice": 20
+    }
+]  
