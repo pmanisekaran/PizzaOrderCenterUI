@@ -56,6 +56,19 @@ export function Pizza() {
 
     };
 
+    const removeFromCurrentOrder = (pizzaIdTobeRemoved: number) => {
+
+        const indexToRemove = orderItemList.findIndex(item => item.pizzaId === pizzaIdTobeRemoved);
+
+      if (indexToRemove !== -1) {
+        // If an item with the same ID exists, remove it and add the new item
+        const updatedList = [...orderItemList];
+        updatedList.splice(indexToRemove, 1); // Remove the existing item
+        
+        setOrderItemList(updatedList); // Update the state with the modified list
+      }
+    }
+
 
     return (
         <>
@@ -106,7 +119,7 @@ export function Pizza() {
                                         {item.pizzaQty}
                                     </td>
                                     <td>
-                                        <Button> Remove</Button>
+                                        <Button onClick={() => removeFromCurrentOrder(item.pizzaId)}> Remove</Button>
                                     </td>
                                 </tr>
                             ))
