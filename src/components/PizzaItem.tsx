@@ -12,7 +12,7 @@ type PizzItemProps ={
 export function PizzaItem( {pizzaId , pizzaName , pizzaPrice, pizzeriaId }: PizzItemProps )
 {
     return (<Card  >
-        <Card.Img src="./public/pizza.jpg"  height="200px"
+        <Card.Img src="./public/pizza.jpg"  height="100px" width="100px"
         style={{objectFit: "cover"}}
         ></Card.Img>
         <Card.Body className="d=flex flex-column">

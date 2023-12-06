@@ -39,15 +39,15 @@ export function Pizza() {
             const existingItemIndex = orderItemList.findIndex(item => item.pizzaId === itemTobeAdded.pizzaId);
             existingTem.pizzaQty += 1;
 
-            const updatedList = [... orderItemList];
+            const updatedList = [...orderItemList];
             updatedList[existingItemIndex] = {
                 ...updatedList[existingItemIndex],
-                pizzaQty: existingTem.pizzaQty+1
+                pizzaQty: existingTem.pizzaQty + 1
             };
 
 
             // Update the list using the previous state
-            setOrderItemList(prevList => [...prevList ]);
+            setOrderItemList(prevList => [...prevList]);
             //setOrderItemList(orderItemList);
             console.log(existingTem);
         }
@@ -55,6 +55,19 @@ export function Pizza() {
 
 
     };
+
+    const removeFromCurrentOrder = (pizzaIdTobeRemoved: number) => {
+
+        const indexToRemove = orderItemList.findIndex(item => item.pizzaId === pizzaIdTobeRemoved);
+
+        if (indexToRemove !== -1) {
+            // If an item with the same ID exists, remove it and add the new item
+            const updatedList = [...orderItemList];
+            updatedList.splice(indexToRemove, 1); // Remove the existing item
+
+            setOrderItemList(updatedList); // Update the state with the modified list
+        }
+    }
 
 
     return (
@@ -72,8 +85,11 @@ export function Pizza() {
                 </Row>
             </div>
 
-            <div style={{ margin: "10rem" }} >
-                <h2 >Current Order</h2>
+            <div style={{ margin: "3rem" }}  >
+                <div className="d-flex justify-content-between align-items-baseline mb-4">
+                    <span className="fs-2"><h2 >Current Order</h2></span>
+                    <span className="ms-2 text-muted"><Button>Place Order</Button></span>
+                </div>
                 <Table striped bordered hover size="sm">
                     <thead>
                         <th>
@@ -106,7 +122,9 @@ export function Pizza() {
                                         {item.pizzaQty}
                                     </td>
                                     <td>
-                                        <Button> Remove</Button>
+
+                                        <Button className="w-100" onClick={() => removeFromCurrentOrder(item.pizzaId)}> Remove</Button>
+
                                     </td>
                                 </tr>
                             ))
