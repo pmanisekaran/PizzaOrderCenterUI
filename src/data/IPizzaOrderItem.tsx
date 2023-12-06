@@ -1,11 +1,11 @@
 interface IPizzaOrderItem
 {
-   
-       pizzaId: number;
-       pizzaName: string;
-       pizzeriaId: number;
-       pizzaPrice: number;
-       pizzaQty :number;
+    pizzaOrderItemId? : number
+    pizzaId :number
+    qty: number
+    lineTotal :number
+    pizzaOrderId :0
+    pizzaOrderItemToppings:[]
 
-     
+
 }

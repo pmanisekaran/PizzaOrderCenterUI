@@ -12,29 +12,22 @@ import { formatCurrency } from "../utilities/formatCurrency";
 export function Pizza() {
     const navigate = useNavigate();
     const [orderTotal, setOrderTotal] = useState<number>(0)
-    const [pizzaList, setPizzaList] = useState<IPizza[]>([]);
+    // const [pizzaList, setPizzaList] = useState<IPizza[]>([]);
     const [pizzeriaList, setPizzeriaList] = useState<IPizzeria[]>([]);
-    const [orderItemList, setOrderItemList] = useState<IPizzaOrderItem[]>([]);
+    const [orderItemList, setOrderItemList] = useState<IPizzaOrderCartItem[]>([]);
     useEffect(() => {
-        const fetchDataPizzaMenu = async () => {
-            const response = await fetch(`https://localhost:7033/api/PizzeriaMenu`);
-            const newData = await response.json();
-            setPizzaList(newData);
-
-
-        };
         const fetchDataPizzeria = async () => {
             const response = await fetch(`https://localhost:7033/api/Pizzeria`);
             const newData = await response.json();
             setPizzeriaList(newData);
         };
-        fetchDataPizzaMenu();
+        //fetchDataPizzaMenu();
         fetchDataPizzeria();
 
     }, [])
     const addToCurrentOrder = (itemTobeAdded: IPizza) => {
         // // Add a new item to the list
-        const newItem: IPizzaOrderItem = {
+        const newItem: IPizzaOrderCartItem = {
             pizzaId: itemTobeAdded.pizzaId,
             pizzaName: itemTobeAdded.pizzaName,
             pizzeriaId: itemTobeAdded.pizzeriaId,
@@ -82,15 +75,54 @@ export function Pizza() {
     }
     const placeOrder = () => {
 
-        // If an item with the same ID exists, remove it and add the new item
-        const updatedList = [...orderItemList];
-        updatedList.splice(0, orderItemList.length); // Remove the existing item
+        const pizzaOrder: IPizzerOrder = {
+            
+            customerName: 'John Doe',
+            orderTotal: 0,
+            pizzaOrderItems: []
+          };
+          const pizzaOrderItem: IPizzaOrderItem = {
+            pizzaId: 1,
+            qty: 1,
+            lineTotal: 10.99,
+            pizzaOrderId: 0,
+            pizzaOrderItemToppings :[]
 
-        setOrderItemList(updatedList); // Update the state with the modified list
+        
+            
+          };
+        orderItemList.forEach(item => {
+            pizzaOrderItem.pizzaId = item.pizzaId;
+            pizzaOrderItem.qty = item.pizzaQty;
+            pizzaOrder.pizzaOrderItems.push(pizzaOrderItem);
+            
+        });        
+        
+        fetch('https://localhost:7033/api/PizzaOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(pizzaOrder)
+        })
+            .then(response => response.json())
+            .then(returnedData => {
+                // Accessing the returned object and retrieving the orderTotal property
+                const returnedOrderTotal = returnedData.orderTotal;
+                console.log('Returned Order Total:', returnedOrderTotal);
+                setOrderTotal(returnedOrderTotal);
+                // Perform actions with the returned order total here
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle errors if any
+            });
 
 
 
     }
+
+   
     const clearOrder = () => {
 
         // If an item with the same ID exists, remove it and add the new item
@@ -135,7 +167,7 @@ export function Pizza() {
                     <div style={{ margin: "1rem", position: 'sticky', top: 0 }}  >
                         <div className="d-flex justify-content-between align-items-baseline mb-4">
                             <span className="fs-5">Current Order</span>
-                            <span className="ms-2 text-muted"><Button onClick={() => placeOrder()}>Place Order</Button></span>
+                            <span className="ms-2 text-muted"><Button disabled={orderTotal !== 0} onClick={() => placeOrder()}>Place Order</Button></span>
                             <span className="ms-2 text-muted"><Button onClick={() => clearOrder()}>Clear Order</Button></span>
                         </div>
                         <Table striped bordered hover size="sm">
@@ -158,7 +190,7 @@ export function Pizza() {
                                 {
 
 
-                                    orderItemList.map((item: IPizzaOrderItem) => (
+                                    orderItemList.map((item: IPizzaOrderCartItem) => (
                                         <tr key={item.pizzaId}>
                                             <td>
                                                 {item.pizzaName}
