@@ -5,9 +5,11 @@ import { PizzaItem } from "../components/PizzaItem"
 //import pizzaList from "../data/pizzaList.json"
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
+import { useNavigate } from "react-router-dom";
 
 
 export function Pizza() {
+    const navigate = useNavigate();
     const [pizzaList, setPizzaList] = useState<IPizza[]>([]);
     const [orderItemList, setOrderItemList] = useState<IPizzaOrderItem[]>([]);
     useEffect(() => {
@@ -68,6 +70,17 @@ export function Pizza() {
             setOrderItemList(updatedList); // Update the state with the modified list
         }
     }
+    const placeOrder = () => {
+
+        // If an item with the same ID exists, remove it and add the new item
+        const updatedList = [...orderItemList];
+        updatedList.splice(0, orderItemList.length); // Remove the existing item
+
+        setOrderItemList(updatedList); // Update the state with the modified list
+
+        navigate("/");
+
+    }
 
 
     return (
@@ -88,7 +101,7 @@ export function Pizza() {
             <div style={{ margin: "3rem" }}  >
                 <div className="d-flex justify-content-between align-items-baseline mb-4">
                     <span className="fs-2"><h2 >Current Order</h2></span>
-                    <span className="ms-2 text-muted"><Button>Place Order</Button></span>
+                    <span className="ms-2 text-muted"><Button onClick={() => placeOrder()}>Place Order</Button></span>
                 </div>
                 <Table striped bordered hover size="sm">
                     <thead>
