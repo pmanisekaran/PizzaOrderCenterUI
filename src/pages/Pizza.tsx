@@ -81,17 +81,18 @@ export function Pizza() {
             orderTotal: 0,
             pizzaOrderItems: []
           };
-          const pizzaOrderItem: IPizzaOrderItem = {
-            pizzaId: 1,
-            qty: 1,
-            lineTotal: 10.99,
-            pizzaOrderId: 0,
-            pizzaOrderItemToppings :[]
-
         
-            
-          };
         orderItemList.forEach(item => {
+            const pizzaOrderItem: IPizzaOrderItem = {
+                pizzaId: 1,
+                qty: 1,
+                lineTotal: 10.99,
+                pizzaOrderId: 0,
+                pizzaOrderItemToppings :[]
+    
+            
+                
+              };
             pizzaOrderItem.pizzaId = item.pizzaId;
             pizzaOrderItem.qty = item.pizzaQty;
             pizzaOrder.pizzaOrderItems.push(pizzaOrderItem);
@@ -130,6 +131,7 @@ export function Pizza() {
         updatedList.splice(0, orderItemList.length); // Remove the existing item
 
         setOrderItemList(updatedList); // Update the state with the modified list
+        setOrderTotal(0);
 
 
 
