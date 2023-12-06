@@ -6,10 +6,12 @@ import { PizzaItem } from "../components/PizzaItem"
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import "bootstrap/dist/css/bootstrap.min.css"
 import { useNavigate } from "react-router-dom";
+import { formatCurrency } from "../utilities/formatCurrency";
 
 
 export function Pizza() {
     const navigate = useNavigate();
+    const [orderTotal, setOrderTotal] = useState<number>(0)
     const [pizzaList, setPizzaList] = useState<IPizza[]>([]);
     const [pizzeriaList, setPizzeriaList] = useState<IPizzeria[]>([]);
     const [orderItemList, setOrderItemList] = useState<IPizzaOrderItem[]>([]);
@@ -86,7 +88,7 @@ export function Pizza() {
 
         setOrderItemList(updatedList); // Update the state with the modified list
 
-         
+
 
     }
     const clearOrder = () => {
@@ -97,7 +99,7 @@ export function Pizza() {
 
         setOrderItemList(updatedList); // Update the state with the modified list
 
-        
+
 
     }
 
@@ -129,8 +131,8 @@ export function Pizza() {
                         }
                     </div >
                 </Col>
-                <Col md={4} >
-                    <div style={{ margin: "1rem" }}  >
+                <Col md={4} style={{ position: 'sticky', top: 0 }}>
+                    <div style={{ margin: "1rem", position: 'sticky', top: 0 }}  >
                         <div className="d-flex justify-content-between align-items-baseline mb-4">
                             <span className="fs-5">Current Order</span>
                             <span className="ms-2 text-muted"><Button onClick={() => placeOrder()}>Place Order</Button></span>
@@ -178,7 +180,10 @@ export function Pizza() {
                                 }
                             </tbody>
                         </Table>
-
+                        <div className="d-flex justify-content-between align-items-baseline mb-4">
+                            <span className="fs-4" style={{ flexGrow: 1 }}>Order Total</span>
+                            <span className="fs-4 text-muted">{formatCurrency(orderTotal)}</span>
+                        </div>
                     </div>
                 </Col>
             </Row>
