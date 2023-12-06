@@ -75,7 +75,7 @@ export function Pizza() {
     }
     const placeOrder = () => {
 
-        const pizzaOrder: IPizzerOrder = {
+        const pizzaOrder: IPizzaOrder = {
             
             customerName: 'John Doe',
             orderTotal: 0,

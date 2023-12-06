@@ -1,4 +1,4 @@
-interface IPizzerOrder
+interface IPizzaOrder
 {
     pizzaOrderId?: number;
     customerName: string;
